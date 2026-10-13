@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F4F3FF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="26dp">
+
+        <TextView
+            android:id="@+id/resultTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="QUIZ COMPLETED!"
+            android:textColor="#382078"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="26dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:background="#FFFFFF"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Score: 0 / 15"
+                android:textColor="#21124A"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="18dp"/>
+
+            <TextView
+                android:id="@+id/percentageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Percentage: 0%"
+                android:textColor="#997000"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/messageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keep practising!"
+                android:textColor="#55516B"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:layout_marginTop="22dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Try Again"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#382078"
+            android:layout_marginTop="28dp"/>
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Back to Home"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textColor="#382078"
+            android:backgroundTint="#E4DDF8"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+</ScrollView>
