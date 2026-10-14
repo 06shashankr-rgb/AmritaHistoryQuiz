@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -20,7 +19,10 @@ public class MainActivity extends Activity {
         questionCountSpinner = findViewById(R.id.questionCountSpinner);
         Button startButton = findViewById(R.id.startButton);
 
-        String[] counts = {"10 Questions", "15 Questions", "20 Questions", "25 Questions"};
+        String[] counts = {
+                "10 Questions", "15 Questions", "20 Questions",
+                "25 Questions", "30 Questions"
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, counts);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -28,7 +30,6 @@ public class MainActivity extends Activity {
 
         startButton.setOnClickListener(v -> {
             int selectedCount = (questionCountSpinner.getSelectedItemPosition() + 1) * 5 + 5;
-            // Available choices are 10, 15, 20 and 25 questions.
             Intent intent = new Intent(MainActivity.this, QuizActivity.class);
             intent.putExtra("question_count", selectedCount);
             startActivity(intent);
