@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/reviewHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ANSWER REVIEW"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="8dp" />
+    <TextView
+        android:id="@+id/reviewScoreSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your score: 0 / 10"
+        android:textColor="#FFD76A"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="8dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="false">
+        <LinearLayout
+            android:id="@+id/reviewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+    </ScrollView>
+    <Button
+        android:id="@+id/reviewDoneButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="Back to Results"
+        android:textAllCaps="false"
+        android:textColor="#382078"
+        android:textStyle="bold"
+        android:backgroundTint="#FFD76A" />
+</LinearLayout>
