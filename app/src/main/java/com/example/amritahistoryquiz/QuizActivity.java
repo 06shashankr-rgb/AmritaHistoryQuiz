@@ -44,6 +44,12 @@ public class QuizActivity extends Activity {
         dbHelper = new DBHelper(this);
         questions = dbHelper.getQuestions();
 
+        int requestedCount = getIntent().getIntExtra("question_count", 10);
+        int actualCount = Math.min(requestedCount, questions.size());
+        if (actualCount > 0 && questions.size() > actualCount) {
+            questions = questions.subList(0, actualCount);
+        }
+
         if (questions.isEmpty()) {
             Toast.makeText(this, "No questions found in the database.",
                     Toast.LENGTH_LONG).show();
