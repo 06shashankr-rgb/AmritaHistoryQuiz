@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AmritaHistoryQuiz.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,6 +54,13 @@ public class DBHelper extends SQLiteOpenHelper {
         insertQuestion(db, "What is the purpose of academic programmes at a university?", "Provide structured learning in selected fields", "Only arrange sports events", "Only manage accommodation", "Replace all examinations with games", 0);
         insertQuestion(db, "Why can a university have campuses in different regions?", "To provide education and academic activities across locations", "To stop students from studying", "To offer only one subject nationwide", "To replace libraries", 0);
         insertQuestion(db, "Which combination best represents a modern university's activities?", "Teaching, research and community engagement", "Only shopping and sales", "Only transport and construction", "Only entertainment", 0);
+
+        // A small set of questions about Amma, alongside the university-focused questions.
+        insertQuestion(db, "Amma is widely known by which name?", "Sri Mata Amritanandamayi Devi", "Sarojini Naidu", "Annie Besant", "Savitribai Phule", 0);
+        insertQuestion(db, "Which organisation is closely associated with Amma's humanitarian and charitable activities?", "Mata Amritanandamayi Math", "Indian Space Research Organisation", "Election Commission of India", "National Testing Agency", 0);
+        insertQuestion(db, "Which value is especially associated with Amma's public message and humanitarian work?", "Compassion and service", "Competition at any cost", "Commercial profit only", "Political campaigning", 0);
+        insertQuestion(db, "Amrita SeRVe is associated with work focused on supporting which communities?", "Rural communities", "Only international airports", "Only film studios", "Only stock exchanges", 0);
+        insertQuestion(db, "Which activity best reflects the service-oriented work associated with Amma and her organisations?", "Humanitarian relief and community support", "Manufacturing mobile phones", "Running a professional sports league", "Managing railway timetables", 0);
     }
 
     private void insertQuestion(SQLiteDatabase db, String question, String option1,
