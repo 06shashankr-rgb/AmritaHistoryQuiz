@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.amritahistoryquiz"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.amritahistoryquiz"
@@ -18,8 +18,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-}
-
-dependencies {
-    implementation("androidx.appcompat:appcompat:1.7.0")
 }
