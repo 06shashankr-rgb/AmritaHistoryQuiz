@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F4F3FF">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,47 +16,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="AMRITA"
-            android:textColor="#382078"
-            android:textSize="38sp"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="VISHWA VIDYAPEETHAM"
-            android:textColor="#B8860B"
+            android:textColor="#FFD76A"
             android:textSize="17sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:layout_marginTop="6dp"/>
+            android:layout_marginTop="6dp" />
 
         <View
-            android:layout_width="75dp"
+            android:layout_width="82dp"
             android:layout_height="4dp"
-            android:background="#B8860B"
+            android:background="#FFD76A"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="HISTORY QUIZ"
-            android:textColor="#21124A"
-            android:textSize="29sp"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="How well do you know Amrita? Explore its history, leadership and achievements through this interactive quiz."
-            android:textColor="#55516B"
+            android:text="Explore Amrita's history, campuses, academics and achievements."
+            android:textColor="#F0EBFF"
             android:textSize="16sp"
             android:gravity="center"
             android:lineSpacingExtra="6dp"
             android:layout_marginTop="18dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="26dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CHOOSE QUIZ LENGTH"
+            android:textColor="#FFD76A"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <Spinner
+            android:id="@+id/questionCountSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:background="#FFFFFF"
+            android:spinnerMode="dropdown" />
 
         <Button
             android:id="@+id/startButton"
@@ -67,17 +85,18 @@
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#382078"/>
+            android:textColor="#382078"
+            android:backgroundTint="#FFD76A"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="LEARN  •  EXPLORE  •  REMEMBER"
-            android:textColor="#997000"
+            android:textColor="#FFFFFF"
             android:textSize="13sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="24dp" />
     </LinearLayout>
 </ScrollView>
