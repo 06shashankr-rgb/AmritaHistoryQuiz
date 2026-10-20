@@ -5,6 +5,7 @@
         android:label="Amrita History Quiz"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity android:name=".ScoreHistoryActivity" android:exported="false" />
         <activity android:name=".ReviewActivity" android:exported="false" />
         <activity android:name=".ResultActivity" android:exported="false" />
         <activity android:name=".QuizActivity" android:exported="false" />
