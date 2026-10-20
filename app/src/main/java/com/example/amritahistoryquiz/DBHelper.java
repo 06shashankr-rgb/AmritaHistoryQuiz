@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AmritaHistoryQuiz.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,9 +25,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "question TEXT NOT NULL, option1 TEXT NOT NULL, " +
                 "option2 TEXT NOT NULL, option3 TEXT NOT NULL, " +
                 "option4 TEXT NOT NULL, answer INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE students (" +
+                "student_id TEXT PRIMARY KEY, student_name TEXT NOT NULL, pin TEXT NOT NULL)");
         db.execSQL("CREATE TABLE scores (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, score INTEGER NOT NULL, " +
-                "total INTEGER NOT NULL, played_at TEXT DEFAULT CURRENT_TIMESTAMP)");
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, student_id TEXT NOT NULL, " +
+                "score INTEGER NOT NULL, total INTEGER NOT NULL, " +
+                "played_at TEXT DEFAULT CURRENT_TIMESTAMP)");
 
         insertQuestion(db, "In which year did Amrita's educational journey begin with its School of Engineering?", "1990", "1994", "2003", "2005", 1);
         insertQuestion(db, "Where was Amrita's first School of Engineering established?", "Bengaluru", "Kochi", "Ettimadai, Coimbatore", "Chennai", 2);
@@ -77,9 +80,47 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS questions");
-        db.execSQL("DROP TABLE IF EXISTS scores");
-        onCreate(db);
+        // Preserve existing questions and scores when upgrading older installs.
+        if (oldVersion < 4) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS students (" +
+                    "student_id TEXT PRIMARY KEY, student_name TEXT NOT NULL, pin TEXT NOT NULL)");
+            db.execSQL("ALTER TABLE scores ADD COLUMN student_id TEXT NOT NULL DEFAULT 'legacy'");
+        }
+    }
+
+    // Returns 1 for successful login, 2 for a newly created local account,
+    // and 0 when an existing account's PIN is incorrect.
+    public int registerOrLoginStudent(String studentId, String studentName, String pin) {
+        SQLiteDatabase db = getWritableDatabase();
+        try (Cursor cursor = db.rawQuery(
+                "SELECT pin FROM students WHERE student_id = ?",
+                new String[]{studentId})) {
+            if (cursor.moveToFirst()) {
+                return pin.equals(cursor.getString(0)) ? 1 : 0;
+            }
+        }
+        ContentValues values = new ContentValues();
+        values.put("student_id", studentId);
+        values.put("student_name", studentName);
+        values.put("pin", pin);
+        db.insertOrThrow("students", null, values);
+        return 2;
+    }
+
+    public void saveScore(String studentId, int score, int total) {
+        ContentValues values = new ContentValues();
+        values.put("student_id", studentId);
+        values.put("score", score);
+        values.put("total", total);
+        getWritableDatabase().insertOrThrow("scores", null, values);
+    }
+
+    public String getStudentName(String studentId) {
+        try (Cursor cursor = getReadableDatabase().rawQuery(
+                "SELECT student_name FROM students WHERE student_id = ?",
+                new String[]{studentId})) {
+            return cursor.moveToFirst() ? cursor.getString(0) : studentId;
+        }
     }
 
     public List<Question> getQuestions() {
@@ -97,10 +138,4 @@ public class DBHelper extends SQLiteOpenHelper {
         return questionList;
     }
 
-    public void saveScore(int score, int total) {
-        ContentValues values = new ContentValues();
-        values.put("score", score);
-        values.put("total", total);
-        getWritableDatabase().insertOrThrow("scores", null, values);
-    }
 }
