@@ -23,6 +23,10 @@ public class ScoreHistoryActivity extends Activity {
         root.setPadding(dp(20), dp(24), dp(20), dp(24));
         scroll.addView(root);
         TextView title = new TextView(this);
+        String studentId = getSharedPreferences("AmritaQuizSession", MODE_PRIVATE)
+                .getString("student_id", "");
+        String studentName = getSharedPreferences("AmritaQuizSession", MODE_PRIVATE)
+                .getString("student_name", "Student");
         title.setText("MY QUIZ SCORE HISTORY");
         title.setTextColor(Color.WHITE);
         title.setTextSize(24);
@@ -30,7 +34,7 @@ public class ScoreHistoryActivity extends Activity {
         title.setTypeface(null, 1);
         root.addView(title, params(-1, -2));
         TextView subtitle = new TextView(this);
-        subtitle.setText("Your previous quiz attempts saved on this device");
+        subtitle.setText("Student: " + studentName + " (" + studentId + ")");
         subtitle.setTextColor(Color.LTGRAY);
         subtitle.setTextSize(15);
         subtitle.setGravity(Gravity.CENTER);
@@ -41,7 +45,7 @@ public class ScoreHistoryActivity extends Activity {
         lp.topMargin = dp(18);
         root.addView(list, lp);
         helper = new DBHelper(this);
-        loadHistory();
+        loadHistory(studentId);
         TextView back = new TextView(this);
         back.setText("Back to Result");
         back.setTextColor(Color.rgb(40, 25, 80));
@@ -56,10 +60,16 @@ public class ScoreHistoryActivity extends Activity {
         setContentView(scroll);
     }
 
-    private void loadHistory() {
+    private void loadHistory(String studentId) {
+        if (studentId == null || studentId.trim().isEmpty()) {
+            addText("No student is logged in. Return home and log in first.", Color.WHITE, 17);
+            return;
+        }
         SQLiteDatabase db = helper.getReadableDatabase();
         int attempt = 1;
-        try (Cursor c = db.rawQuery("SELECT score, total, played_at FROM scores ORDER BY id ASC", null)) {
+        try (Cursor c = db.rawQuery(
+                "SELECT score, total, played_at FROM scores WHERE student_id = ? ORDER BY id ASC",
+                new String[]{studentId})) {
             if (!c.moveToFirst()) {
                 addText("No quiz attempts yet. Complete a quiz to see your score here.", Color.WHITE, 17);
                 return;
