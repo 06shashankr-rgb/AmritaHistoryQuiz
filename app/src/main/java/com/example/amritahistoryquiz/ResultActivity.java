@@ -19,6 +19,7 @@ public class ResultActivity extends Activity {
         Button retryButton = findViewById(R.id.retryButton);
         Button homeButton = findViewById(R.id.homeButton);
         Button viewAnswersButton = findViewById(R.id.viewAnswersButton);
+        Button scoreHistoryButton = findViewById(R.id.scoreHistoryButton);
 
         int score = getIntent().getIntExtra("score", 0);
         int total = getIntent().getIntExtra("total", 0);
@@ -29,6 +30,10 @@ public class ResultActivity extends Activity {
         if (percentage >= 80) messageText.setText("Excellent! You know Amrita's history well.");
         else if (percentage >= 50) messageText.setText("Good job! Keep learning about Amrita.");
         else messageText.setText("Keep practising and try again!");
+
+        scoreHistoryButton.setOnClickListener(v -> {
+            startActivity(new Intent(ResultActivity.this, ScoreHistoryActivity.class));
+        });
 
         viewAnswersButton.setOnClickListener(v -> {
             Intent intent = new Intent(ResultActivity.this, ReviewActivity.class);
