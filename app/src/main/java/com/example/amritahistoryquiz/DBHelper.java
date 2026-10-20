@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -96,13 +98,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 "SELECT pin FROM students WHERE student_id = ?",
                 new String[]{studentId})) {
             if (cursor.moveToFirst()) {
-                return pin.equals(cursor.getString(0)) ? 1 : 0;
+                return hashPin(pin).equals(cursor.getString(0)) ? 1 : 0;
             }
         }
         ContentValues values = new ContentValues();
         values.put("student_id", studentId);
         values.put("student_name", studentName);
-        values.put("pin", pin);
+        values.put("pin", hashPin(pin));
         db.insertOrThrow("students", null, values);
         return 2;
     }
@@ -113,6 +115,18 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("score", score);
         values.put("total", total);
         getWritableDatabase().insertOrThrow("scores", null, values);
+    }
+
+    private String hashPin(String pin) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = digest.digest(pin.getBytes(StandardCharsets.UTF_8));
+            StringBuilder result = new StringBuilder();
+            for (byte b : bytes) result.append(String.format("%02x", b & 0xff));
+            return result.toString();
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to secure student PIN", e);
+        }
     }
 
     public String getStudentName(String studentId) {
