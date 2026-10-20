@@ -70,6 +70,17 @@
             android:backgroundTint="#FFD76A"
             android:layout_marginTop="24dp" />
         <Button
+            android:id="@+id/scoreHistoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="View Score History"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#287A78"
+            android:layout_marginTop="12dp" />
+        <Button
             android:id="@+id/retryButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
