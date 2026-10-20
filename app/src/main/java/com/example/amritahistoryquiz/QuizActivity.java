@@ -86,7 +86,14 @@ public class QuizActivity extends Activity {
         if (currentQuestion < questions.size()) {
             showQuestion();
         } else {
-            dbHelper.saveScore(score, questions.size());
+            String studentId = getSharedPreferences("AmritaQuizSession", MODE_PRIVATE)
+                    .getString("student_id", "");
+            if (studentId.isEmpty()) {
+                Toast.makeText(this, "Please log in again before saving your score.", Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+            dbHelper.saveScore(studentId, score, questions.size());
             Intent intent = new Intent(QuizActivity.this, ResultActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("total", questions.size());
